@@ -19,85 +19,105 @@
 	\end{figure}
 	The engine has 6 cylinders and 3000 c.c. total swept volume. The fuel used will be standard octane gasoline. Intake is taken from the ambient atmosphere.\\
 	A modern atkinson cycle is chosen in-lieu of the traditional Otto cycle for it's increased ideal efficiency and better mixing properties.\\
-	These parameters completely define our thermal cycle. Since the proportion of gasoline is small, and gasoline composed of nonpolar substances, an Ideal Gas model is assumed.
+	These parameters completely define our thermal cycle. Since the proportion of gasoline is small, and gasoline composed of nonpolar substances, an air standard model is used. The air is not assumed cold - the cold assumption results in far too significant of errors. NASA empirical air curves are used instead.
 	\subsection*{Initial Constraints}
 	Our compression ratio is taken to be 10, a high compression ratio that prevents knocking. \\
-	Likewise, a standard air to fuel mixture ratio of 14.7 is chosen.
+	a standard air to fuel mixture ratio of 14.7 is chosen.
 	\begin{align}
-		C_R &= \frac{V_2}{V_3} \\
+		C_R &= \frac{V_1}{V_2} \\
 		M_R &= \frac{m_A}{m_G} = 14.7
 	\end{align}
 	The volumes are constrained by the total c.c. of the engine. Likewise, it is noted process 3-4 is isochoric.
 	\begin{align}
-		V_4 &= V_3\\
-		\frac{3000\ \text{c.c.}}{6} &= V_1-V_4 
+		\frac{3000\ \text{c.c.}}{6} &= V_4-V_2 
 	\end{align}
-	Finally, point 1 and point 2 are at ambient pressure $p_{amb}$ and temperature $T_{amb}$.
-	\subsection*{Process 2 to 3}
-	Using the isentropic equations, $p_3$ is solved for.
+	Finally, point 1 and point 2 are at ambient pressure $p_{amb}$, temperature $T_{amb}$, and density $\rho_{amb}$. Also calculations will use a reference STP density $\rho_o$ and $T_o$. Likewise the gas constant for air is used.
 	\begin{align}
-	\frac{p_3}{p_2} = C_R^{\gamma}\\
-	p_3 = p_{amb} C_R^{\gamma}
+		R_A &= 287.1 \\
+		p_{amb} &= 101325\ \text{Pa} \\
+		T_{amb} &= 288.7\ \text{K} \\
+		\rho_{amb} &= 1.225\ \text{kg}\ \text{m}^{-3}\\
+		T_o &= 273.15\ \text{K} \\
+		\rho_0 &= 1.2754\ \text{kg}\ \text{m}^{-3}
 	\end{align}
-	\subsection*{Process 3 to 4}
-	The total volume $V_2$ determines the total energy input. By setting up volume mass relations and using the mix ratio, the total mass of the gasoline can be found. This leaves a $V_2$ in the unknowns.
+	The lower value of the heat of combustion from the U.S. EIA.
 	\begin{align}
-	V_G &= m_g R_g \frac{T_2}{p_2} = m_g R_g \frac{T_{amb}}{p_{amb}}\\
-	V_A &= m_a R_a \frac{T_{amb}}{p_{amb}}\\
-	V_2 &= V_G + V_A = m_G \frac{T_{amb}}{p_{amb}} (R_G + M_R R_A)\\
-	m_G &= \frac{V_2 p_{amb}}{T_{amb}(R_G + M_R R_A)}\\
-	Q &= m_G H_G
+		H_G &= 46.7\ \text{MJ}\ \text{kg}^{-1}
 	\end{align}
-	Next, using energy conservation, an equation is set up to solve for $p_4$. Since this process is isochoric, W = 0.
+	\subsection*{State 1}
+	This is the start of the compression stroke right after the intake stroke. The air is at ambient conditions, noted in the previous section. Additionally the specific volume is calculated and the internal energy taken from an air table.
 	\begin{align}
-		\frac{3}{2} p_4 V_4 &= \frac{3}{2} p_3 V_4 + Q
+		u_1 &= 205.98\ \text{kJ}\ \text{kg}^{-1}\\
+		v_1 &= 0.8163\ \text{m}^3\ \text{kg}^{-1}
 	\end{align}
-	\subsection*{Process 4 to 1}
-	Finally, isentropic relations are used to create one final equation.
+	
+	\subsection*{State 2}
+	The process from state 1 to state 2 is an isentropic process. 
 	\begin{align}
-		\frac{p_4}{p_{amb}} = \Big( \frac{V_1}{V_4} \Big)^{\gamma}
+		C_R &= \frac{v_1}{v_2}\\
+		v_2 &= \frac{v_1}{C_R}\\
+		v_2 &= 0.08163\ \text{m}^3\ \text{kg}^{-1}\\
+		\rho_2 &= 12.25\ \text{kg}\ \text{m}^{-3}
 	\end{align}
-	\subsection*{Solving for Unknowns}
-	Currently there are 5 unknowns: $V_1\ V_2\ V_3\ V_4\ p_4$ \\
-	The 5 equations used to solve them are listed below:
+	From the air tables:
 	\begin{align}
-	\frac{3000\ \text{c.c.}}{6} &= V_S = V_1-V_4\\	
-	C_R &= \frac{V_2}{V_3} \\
-	Q &= m_G H_G = \frac{H_G p_{amb} V_2}{T_{amb}(R_G + M_R R_A)} \\
-	\frac{3}{2} p_4 V_4 &= \frac{3}{2} p_3 V_4 + Q \\
-	\frac{p_4}{p_{amb}} &= \Big( \frac{V_1}{V_4} \Big)^{\gamma}	
+		T_2 &= 705\ \text{K}\\
+		u_2 &= 516.4\ \text{kJ}\ \text{kg}^{-1}
 	\end{align}
-	Plugging in interim constants and replacing $V_3$ with $V_4$.
+	\subsection{State 3}
+	The process from state 2 to state 3 is an isochoric process with an input Q. The specific heat is given by the mass ratio.
 	\begin{align}
-	V_S &= V_1-V_4\\	
-	V_2 &= C_R V_4 \\
-	Q &= C_1 V_2 \\
-	\frac{3}{2} p_4 V_4 &= \frac{3}{2} p_3 V_4 + C_1 V_2 \\
-	\frac{p_4}{p_{amb}} &= \Big( \frac{V_1}{V_4} \Big)^{\gamma}	
+		m_t &= m_G + m_A = m_G + M_R m_G \\
+		Q &= m_G H_G \\
+		q &= \frac{Q}{m_t} = \frac{H_G}{1 + M_R}\\
+		q &= 2.975\ \text{MJ}\ \text{kg}^{-1}
 	\end{align}
-	Substituting in $V_2 = C_R V_4$ and $p_3 = p_{amb} C_R^{\gamma}$ to get:
+	W = 0, so our final internal energy is given by adding the heat and initial internal energy.
 	\begin{align}
-		\frac{3}{2} p_4 V_4 &= \frac{3}{2} p_{amb} C_R^{\gamma} V_4 + C_1 C_R V_4 \\
-		p_4 &= p_{amb} C_R^{\gamma} + \frac{2}{3} C_1 C_R
+		u_3 &= q + u_2\\
+		u_3 &= 3490.9\ \text{kJ}\ \text{kg}^{-1}
 	\end{align}
-	Substituting in $V_1 = V_S + V_4$:
+	At this point, the extremely high pressures and temperatures cause significant deviation from the Ideal Gas Model. Empirical curve fits are used here to better estimate the pressures.
+	However, the internal energy and density of this state are known, since the process is isochoric.
 	\begin{align}
-		\Big( \frac{p_4}{p_{amb}} \Big)^{\frac{1}{\gamma}} &= \frac{V_S + V_4}{V_4}\\
-		V_4 \bigg( \Big( \frac{p_4}{p_{amb}} \Big)^{\frac{1}{\gamma}} - 1 \bigg) &= V_S \\
-		V_4 &= \frac{V_S}{\Bigg( \Big( \frac{p_4}{p_{amb}} \Big)^{\frac{1}{\gamma}} - 1 \Bigg)}
+		\rho_4 &=  12.25\ \text{kg}\ \text{m}^{-3}\\
+		\log \frac{\rho}{\rho_o} &= 0.98249\\
+		\log \frac{e}{R T_o} &= 1.6486\\
+		\gamma &= 1.2881\\		
+		p &= 12.318\ \text{MPa}\\
+		\frac{s}{R} &= 29.196
 	\end{align}
-	Finally from $V_4$ $V_2$ and $V_1$ are derived:
+	\subsection{State 4}
+	This is the expansion stroke - modeled as an isentropic process. The pressure it expands to is chosen so enough power is produced.
 	\begin{align}
-		V_2 &= C_R V_4 \\
-		V_1 &= V_S + V_4
+		\frac{s}{R} &= 29.196\\
+		p_4 &= 1.75 p_o = 177.32\ \text{kPa}
 	\end{align}
-	\subsection{Other properties and power calculation}
-	First the temperatures and molar amount is found. Then the power is derived from these:
+	The empirical curves are used to get the density. After the density is found, ideal gas relations are used to find the temperature and internal energy.
 	\begin{align}
-		n &= \frac{p_{amb} V_2}{R T_{amb}}\\
-		T_4 &= \frac{p_4 V_4}{n R}\\
-		T_3 &= \frac{p_3 V_3}{n R}\\
-		W_{cyc} &= \frac{3}{2}n R (T_4-T_{amb}) - p_{amb}(V_1-V_2) - \frac{3}{2}n R (T_3-T_{amb})\\
-		P &= 6 W_{cyc} \frac{\omega}{2}
+		\rho_4 &= 0.4285\ \text{kg}\ \text{m}^{-3}\\
+		v_4 &= 2.334\ \text{m}^3\ \text{kg}^{-1}\\
+		T_4 &= 1441.5\ \text{K}\\
+		u_4 &= 1151\ \text{kJ}\ \text{kg}^{-1}
+	\end{align}
+	\subsection{Total Cycle Analysis}
+	The isentropic processes have no heat transfer - $W = \Delta U$.\\
+	The isochoric processes have no work.\\
+	The isobaric process has a simple work relation - $W = P \Delta V$.\\
+	Our specific work is given below:
+	\begin{align}
+		w_{cyc} &= (u_3-u_4) - (u_2-u_1) - p_{amb}(v_4 - v_1) \\
+		w_{cyc} &= 1875.8\ \text{kJ}\ \text{kg}^{-1}
+	\end{align}
+	The total mass can now be found:
+	\begin{align}
+		\frac{3000\ \text{c.c.}}{6} &= m_t(v_4-v_2)\\
+		m_t &= 222.2E-6\ \text{kg}
+	\end{align}
+	Finally, one total cycle is completed per piston for every 2 rotations. The power is given by the mass, specific work, and rotational frequency. The power is evaluated at 8000 R.P.M.
+	\begin{align}
+		P &= 6 m_t w_{cyc} \frac{f}{2}\\
+		P &= 166.7\ \text{kJ}\ \text{s}^{-1}\\
+		P &= 223.4\ \text{hp}
 	\end{align}
 \end{document}
