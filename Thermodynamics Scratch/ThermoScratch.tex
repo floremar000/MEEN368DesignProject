@@ -22,10 +22,10 @@
 	These parameters completely define our thermal cycle. Since the proportion of gasoline is small, and gasoline composed of nonpolar substances, an air standard model is used. The air is not assumed cold - the cold assumption results in far too significant of errors. NASA empirical air curves are used instead.
 	\subsection*{Initial Constraints}
 	Our compression ratio is taken to be 10, a high compression ratio that prevents knocking. \\
-	a standard air to fuel mixture ratio of 14.7 is chosen.
+	A lean air to fuel mixture ratio of 29.4 is chosen to ensure complete combustion and limit the pressures.
 	\begin{align}
 		C_R &= \frac{V_1}{V_2} \\
-		M_R &= \frac{m_A}{m_G} = 14.7
+		M_R &= \frac{m_A}{m_G} = 29.4
 	\end{align}
 	The volumes are constrained by the total c.c. of the engine. Likewise, it is noted process 3-4 is isochoric.
 	\begin{align}
@@ -35,7 +35,7 @@
 	\begin{align}
 		R_A &= 287.1 \\
 		p_{amb} &= 101325\ \text{Pa} \\
-		T_{amb} &= 288.7\ \text{K} \\
+		T_{amb} &= 288\ \text{K} \\
 		\rho_{amb} &= 1.225\ \text{kg}\ \text{m}^{-3}\\
 		T_o &= 273.15\ \text{K} \\
 		\rho_0 &= 1.2754\ \text{kg}\ \text{m}^{-3}
@@ -47,79 +47,75 @@
 	\subsection*{State 1}
 	This is the start of the compression stroke right after the intake stroke. The air is at ambient conditions, noted in the previous section. Additionally the specific volume is calculated and the internal energy taken from an air table.
 	\begin{align}
-		u_1 &= 205.98\ \text{kJ}\ \text{kg}^{-1}\\
+		u_1 &= 205.71\ \text{kJ}\ \text{kg}^{-1}\\
 		v_1 &= 0.8163\ \text{m}^3\ \text{kg}^{-1}
 	\end{align}
 	
 	\subsection*{State 2}
-	The process from state 1 to state 2 is an isentropic process. 
+	The process from state 1 to state 2 is an isentropic process.
 	\begin{align}
 		C_R &= \frac{v_1}{v_2}\\
 		v_2 &= \frac{v_1}{C_R}\\
 		v_2 &= 0.08163\ \text{m}^3\ \text{kg}^{-1}\\
 		\rho_2 &= 12.25\ \text{kg}\ \text{m}^{-3}
 	\end{align}
-	From the air tables:
+	Since it's an isentropic process, the final state can be found from the air table.
 	\begin{align}
-		T_2 &= 705\ \text{K}\\
-		u_2 &= 516.4\ \text{kJ}\ \text{kg}^{-1}
+		T_2 &= 703\ \text{K}\\
+		u_2 &= 514.95\ \text{kJ}\ \text{kg}^{-1}
 	\end{align}
-	\subsection{State 3}
+	\subsection*{State 3}
 	The process from state 2 to state 3 is an isochoric process with an input Q. The specific heat is given by the mass ratio.
 	\begin{align}
 		m_t &= m_G + m_A = m_G + M_R m_G \\
 		Q &= m_G H_G \\
 		q &= \frac{Q}{m_t} = \frac{H_G}{1 + M_R}\\
-		q &= 2.975\ \text{MJ}\ \text{kg}^{-1}
+		q &= 1.5362\ \text{MJ}\ \text{kg}^{-1}
 	\end{align}
 	W = 0, so our final internal energy is given by adding the heat and initial internal energy.
 	\begin{align}
 		u_3 &= q + u_2\\
-		u_3 &= 3490.9\ \text{kJ}\ \text{kg}^{-1}
+		u_3 &= 2051.1\ \text{kJ}\ \text{kg}^{-1}
 	\end{align}
-	At this point, the extremely high pressures and temperatures cause significant deviation from the Ideal Gas Model. Empirical curve fits are used here to better estimate the pressures.
-	However, the internal energy and density of this state are known, since the process is isochoric.
+	The density is the same as before, since it's an isochoric process. Additional properties are now derived from the air table.
 	\begin{align}
-		\rho_4 &=  12.25\ \text{kg}\ \text{m}^{-3}\\
-		\log \frac{\rho_3}{\rho_o} &= 0.98249\\
-		\log \frac{u_3}{R T_o} &= 1.6486\\
-		\gamma &= 1.2881\\		
-		p_3 &= 12.318\ \text{MPa}\\
-		\frac{s_3}{R_A} &= 29.196
+		p_3 &= 8.187\ \text{MPa}\\
+		T_3 &= 2385\ \text{K}\\
+		\rho_3 &= 12.25\ \text{kg}\ \text{m}^{-3}\\
+		p_{3r} &= 4443.2
 	\end{align}
-	\subsection{State 4}
+	\subsection*{State 4}
 	This is the expansion stroke - modeled as an isentropic process. The pressure it expands to is chosen so enough power is produced.
 	\begin{align}
-		\frac{s_4}{R_A} &= 29.196\\
-		p_4 &= 1.75 p_o = 177.32\ \text{kPa}
+		p_4 &= 2.25 p_o = 227.98\ \text{kPa}\\
+		p_{4r} &= 123.73
 	\end{align}
-	The empirical curves are used to get the density. After the density is found, ideal gas relations are used to find the temperature and internal energy.
+	Since it's an isentropic process, the relative pressure can be used to find the final properties.
 	\begin{align}
-		\rho_4 &= 0.4285\ \text{kg}\ \text{m}^{-3}\\
-		v_4 &= 2.334\ \text{m}^3\ \text{kg}^{-1}\\
-		T_4 &= 1441.5\ \text{K}\\
-		u_4 &= 1151\ \text{kJ}\ \text{kg}^{-1}
+		T_4 &= 1022\ \text{K}\\
+		u_4 &= 778\ \text{kJ}\ \text{kg}^{-1}\\
+		\rho_4 &= 0.777\ \text{kg}\ \text{m}^{-3}
 	\end{align}
-	\subsection{Total Cycle Analysis}
+	\subsection*{Total Cycle Analysis}
 	The isentropic processes have no heat transfer - $W = \Delta U$.\\
 	The isochoric processes have no work.\\
 	The isobaric process has a simple work relation - $W = P \Delta V$.\\
 	Our specific work is given below:
 	\begin{align}
 		w_{cyc} &= (u_3-u_4) - (u_2-u_1) - p_{amb}(v_4 - v_1) \\
-		w_{cyc} &= 1875.8\ \text{kJ}\ \text{kg}^{-1}
+		w_{cyc} &= 916.17\ \text{kJ}\ \text{kg}^{-1}
 	\end{align}
-	The total mass can now be found:
+	The total air mass per cylinder can now be found:
 	\begin{align}
 		\frac{3000\ \text{c.c.}}{6} &= m_t(v_4-v_2)\\
-		m_t &= 222.2E-6\ \text{kg}
+		m_t &= 414.81E-6\ \text{kg}
 	\end{align}
 	Finally, one total cycle is completed per piston for every 2 rotations. The power is given by the mass, specific work, and rotational frequency. The power is evaluated at 8000 R.P.M.
 	\begin{align}
 		P &= 6 m_t w_{cyc} \frac{f}{2}\\
-		P &= 166.7\ \text{kJ}\ \text{s}^{-1}\\
-		P &= 223.4\ \text{hp}\\
+		P &= 152.01\ \text{kW}\\
+		P &= 203.85\ \text{hp}\\
 		\eta &= \frac{w_{cyc}}{q}\\
-		\eta &= 63.05 \%
+		\eta &= 59.6 \%
 	\end{align}
 \end{document}
