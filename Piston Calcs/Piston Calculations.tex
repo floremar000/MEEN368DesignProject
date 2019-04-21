@@ -1,0 +1,64 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{placeins}
+
+\begin{document}
+\section*{Gasket Forces}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=.75\textwidth]{PistonDiagram.png}
+		\caption{Ideal Gasket Forces}
+		\label{fig:diagram1}
+	\end{figure}
+	The gaskets exhibit no vertical forces on the wall. Only the horizontal force from the connected rod is considered.
+	The gaskets are simply modeled as springs connecting the piston to either side of the wall. Since the gaskets must maintain connection to the piston chamber wall, small deflections and angles are assumed. Thus small angle approximations are made.
+	\begin{itemize}
+	\item $\theta$ is the angle the piston is rotated with respect to the vertical.
+	\item $x$ is the displacement of the piston.
+	\item $z_{G_1}$ is the vertical distance from the top of the piston head to the center of the top gasket.
+	\item $z_{G_2}$ is the vertical distance from the top of the piston head to the center of the bottom gasket.
+	\item $z_{CG}$ is the vertical distance from the top of the piston head to the center of mass.
+	\item $h_h$ is the height of the piston head.
+	\item $d_h$ is the diameter of the piston head.
+	\item $h_t$ is the height of the piston tail.
+	\item $d_t$ is the diameter of the piston tail.
+	\item $d_{go}$ and $d_{gi}$ is the inner and outer diameters of the gaskets.
+	\item $h_g$ is the gasket height.
+	\item $t$ is the thickness of the gaskets, $\frac{d_{go}-d_{gi}}{2} $
+	\end{itemize}
+	First, the center of mass of the piston is calculated
+	\begin{align}
+		z_{CG} &= \frac{\frac{h_h}{2}d_h^2 h_h + (h_h+ \frac{h_t}{2}) d_t^2 h_t}{d_h^2 h_h + d_t^2 h_t }
+	\end{align}
+	
+	The spring equation for the forces are written out.
+	\begin{align}
+		F_{G_{11}} &= k(x - (z_{CG}-z_{G_1}) \theta) \\
+		F_{G_{12}} &= k(-x + (z_{CG}-z_{G_1}) \theta) \\
+		F_{G_{21}} &= k(x - (z_{CG}-z_{G_2}) \theta) \\
+		F_{G_{22}} &= k(-x + (z_{CG}-z_{G_2}) \theta) 
+	\end{align}
+	The moment and force equations are written out.
+	\begin{align}
+		F_R &= - F_{G_{11}} + F_{G_{12}} - F_{G_{21}} + F_{G_{22}}\\
+		0 &= F_R (h_h + h_t - z_{CG}) + (F_{G_{12}} - F_{G_{11}})(z_{G_1} - z_{CG})+ (F_{G_{22}} - F_{G_{21}})(z_{G_2} - z_{CG})
+	\end{align}
+	Finally, x and theta are solved for.
+	\begin{align}
+	\alpha &= 2 h_{h} z_{CG} - h_{h} z_{G_1} - h_{h} z_{G_2} + 2 h_{t} z_{CG} - h_{t} z_{G_1} - h_{t} z_{G_2}\\
+	\beta &= - 4 z_{CG}^{2} + 3 z_{CG} z_{G_1} + 3 z_{CG} z_{G_2} - z_{G_1}^{2} - z_{G_2}^{2}\\
+		x &= \frac{F_{R} \left(\alpha +\beta\right)}{2 k \left(z_{G_1}^{2} - 2 z_{G_1} z_{G_2} + z_{G_2}^{2}\right)}\\
+		\theta &= \frac{F_{R} \left(2 h_{h} + 2 h_{t} - 4 z_{CG} + z_{G_1} + z_{G_2}\right)}{2 k \left(z_{G_1}^{2} - 2 z_{G_1} z_{G_2} + z_{G_2}^{2}\right)}
+	\end{align}
+	The spring constant of the gaskets is derived in terms of material and geometric properties. To simplify calculation, the gasket will be treated as a flat area cross section.
+	\begin{align}
+		\epsilon &= \frac{\sigma}{E}\\
+		\Delta t &= t \epsilon = \frac{Pt}{A_C E} \\
+		A_C &= d_{go} h_g \\
+		k &= \frac{P}{\Delta t} = \frac{d_{og} h_g E}{t}
+	\end{align}
+\end{document}
