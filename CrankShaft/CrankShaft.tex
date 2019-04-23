@@ -1,0 +1,47 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\begin{document}
+\section*{Crank Shaft Calculations}
+\begin{itemize}
+	\item $l_c$ is the length of each crank.
+	\item $l_s$ is the length of each shaft section between each crank.
+	\item $t_b$ is the thickness of shaft crank connectors.
+	\item $l_a$ is the length of each crank \& shaft subsection. $l_a = l_s + 2t + l_c$
+	\item $l_b$ is the length of the shaft between each bearing location and closest crank connector.
+	\item $l_s$ is the length of the shaft between the two bearings.
+
+\end{itemize}
+The crankshaft consists of six separate pistons acting on the shaft. Since each piston undergoes 4 strokes, a total cycle of $4 \pi$ is needed. Thus each piston stroke is offset by 120 degrees. Piston $n$ is the $n$th piston from the bearing next to the flywheel. Each force on the crank shaft is a vector equation given below.
+\begin{align}
+	\vec{F}_n &= f(\theta + 120 \degree (n-1) )
+\end{align}
+The direction of each crank shaft is offset by 120 degrees too, so the piston cycles are offset by 120 degrees. The radius vector of each crank is given below.
+\begin{align}
+	\vec{r}_n = r_c \Big \langle \cos (\theta + 120 \degree (n-1)  )\ \hat{i},\ \sin (\theta + 120 \degree (n-1))\ \hat{j}  \Big \rangle
+\end{align}
+For the shaft coordinates, the $\hat{k}$ vector is parallel to the axis of the shaft, from the first bearing to the second. The torque equation along the shaft is simply written out using cross products.
+\begin{align}
+	\vec{T}(x) &= \sum_{n=1}^6 \langle x - l_a (n-1) - l_b - \frac{l_c}{2} - t\rangle^0\ \vec{F}_n \times \vec{r}_n 
+\end{align}
+There are two reaction forces at each of the bearings, $\vec{R}_1$ and $\vec{R}_2$. The force and moment equations are written out to solve for these.
+\begin{align}
+	\sum \vec{F} &= \vec{R}_1 + \vec{R}_2 + \sum_{n=1}^6 \vec{F}_n = 0 \\
+	\sum \vec{M} &= \vec{R}_2 \times l_s \hat{j} + \sum_{n=1}^6 \vec{F}_n \times ( x - l_a (n-1) - l_b - \frac{l_c}{2} - t)\ \hat{j} = 0\\
+	\vec{R}_2 &= - \sum_{n=1}^6 \frac{\vec{F}_n ( x - l_a (n-1) - l_b - \frac{l_c}{2} - t)}{l_s}\\
+	\vec{R}_1 &= \sum_{n=1}^6 \frac{\vec{F}_n ( x - l_a (n-1) - l_b - \frac{l_c}{2} - t)}{l_s} - \sum_{n=1}^6 \vec{F}_n
+\end{align}
+The shear and moment equations are derived below. The shear and moment is not affected by the crank offset, since there are no axial forces.
+\begin{align}
+	\vec{V}(x) &= \vec{R}_1 \langle x \rangle^0 + \sum_{n=1}^6 \vec{F}_n\ \langle x - l_a (n-1) - l_b - \frac{l_c}{2} - t\rangle^0\\
+	\vec{M}(x) &= \vec{R}_1 \langle x \rangle + \sum_{n=1}^6 \vec{F}_n\ \langle x - l_a (n-1) - l_b - \frac{l_c}{2} - t\rangle\\
+\end{align}
+The maximum moment and shear stresses are given. The shear stress equation only applies for the on axis shaft.
+\begin{align}
+	\sigma_M (x) = \pm \frac{|\vec{M}(x)| d(x)}{2 I(x)}\\
+	\tau (x) = \frac{|T(x)| d (x)}{2 J(x)}
+\end{align}
+\end{document}
