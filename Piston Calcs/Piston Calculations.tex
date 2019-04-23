@@ -97,5 +97,31 @@
 		\tau_{g\  \text{min}} &= -\frac{3 \mu p_{\text{fit}} d_{go}^2}{d_h^2}
 	\end{align}
 	\subsection*{Axial Piston Stress Calculations}
-	The axial force on the head is determined by the pressure. The resultant stress from the 
+	The axial force on the head is determined by the pressure. The resultant stress from the from the pressure in the piston major diameter is given below.
+	\begin{align}
+		\sigma_{z\ \text{Head}} &= - p
+	\end{align}
+	In the gasket channels, a greater compression stress results from the smaller diameter and push out forces on the gasket. Stress concentration factors $K_1$ and $K_2$ are added due to the geometry.
+	\begin{align}
+		\sigma_{z\ \text{Pressure}} &= - K_1 p \frac{d_h^2}{d_{gi}^2} \\
+		\sigma_{z\ \text{Push Out}} &= - K_2 p \frac{d_{go}^2 - d_h^2}{d_h^2 - d_{gi}^2}\\
+		\sigma_{z\ \text{Channel}} &= - K_1 p \frac{d_h^2}{d_{gi}^2} - K_2 p \frac{d_{go}^2 - d_h^2}{d_h^2 - d_{gi}^2}
+	\end{align}
+	The tail of the piston also has a concentration factor due to the diameter change, represented by $K_3$. The tail also experiences a stress concentration at the joint, which has a hole of diameter $d_j$ and concentration factor $K_4$.
+	\begin{align}
+		\sigma_{z\ \text{Tail}} &= -K_3 p \frac{d_h^2}{d_t^2}\\
+		\sigma_{z\ \text{Joint}} &= - K_4 p \frac{d_h^2}{d_j^2}
+	\end{align}
+	Finally, a push out shear is present due to the joint. An upper limit is given by distributing the shear force among the smallest cross section.
+	\begin{align}
+		V &= \frac{F_R}{2}\\
+		\tau &\leq \frac{3 F_R}{4 A_c}
+	\end{align}
+	The vertical deflection is estimated using $\delta = L \frac{\sigma}{E}$.
+	\begin{align}
+		\delta_{\text{Head}} &= - \frac{l_h p}{E}\\ 
+		\delta_{\text{Tail}} &= - \frac{l_t p \frac{d_h^2}{d_t^2}}{E}\\ 
+		\delta_{\text{Total}} &=  \frac{l_h p -l_t p \frac{d_h^2}{d_t^2}}{E}
+	\end{align}
+	
 \end{document}
