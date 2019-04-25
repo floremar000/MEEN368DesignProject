@@ -15,13 +15,61 @@
 	\item $l_s$ is the length of the shaft between the two bearings.
 
 \end{itemize}
-The crankshaft consists of six separate pistons acting on the shaft. Since each piston undergoes 4 strokes, a total cycle of $4 \pi$ is needed. Thus each piston stroke is offset by 120 degrees. Piston $n$ is the $n$th piston from the bearing next to the flywheel. Each force on the crank shaft is a vector equation given below.
+The crankshaft consists of six separate pistons acting on the shaft. Since each piston undergoes 4 strokes, a total cycle of $4 \pi$ is needed. Thus each piston stroke is offset by 120 degrees. Piston $n$ is the $n$th piston from the bearing next to the flywheel. \\
+The origin is at the bearing nearest the flywheel.
+$\hat{i}$ is pointed up towards the piston axes. $\hat{k}$ is parallel to the shaft, towards the torque output.
+\subsection*{Piston Forces}
+To derive the piston forces, first the linear kinematics of the piston head needs to derived with respect to $\theta = \omega t$, where $\theta = 0$ is TDC and $x$ is the distance below TDC.
 \begin{align}
-	\vec{F}_n &= f(\theta + 120 \degree (n-1) )
+	x(t ) &= (r + l_{CR}) - \Big(r \cos (\omega t)  + \sqrt{l_{\text{CR}}^2 - r^2 \sin^2 (\omega t )} \Big)\\
+	v(t ) &=  \frac{\omega r^{2} \sin{\left (\omega t \right )} \cos{\left (\omega t \right )}}{\sqrt{l_{CR}^{2} - r^{2} \sin^{2}{\left (\omega t \right )}}} + \omega r \sin{\left (\omega t \right )}\\
+	a (t) &=  \frac{\omega^{2} r^{4} \sin^{2}{\left (\omega t \right )} \cos^{2}{\left (\omega t \right )}}{\left(l_{CR}^{2} - r^{2} \sin^{2}{\left (\omega t \right )}\right)^{\frac{3}{2}}} - \frac{\omega^{2} r^{2} \sin^{2}{\left (\omega t \right )}}{\sqrt{l_{CR}^{2} - r^{2} \sin^{2}{\left (\omega t \right )}}}\nonumber \\
+	&  \qquad \qquad + \frac{\omega^{2} r^{2} \cos^{2}{\left (\omega t \right )}}{\sqrt{l_{CR}^{2} - r^{2} \sin^{2}{\left (\omega t \right )}}} + \omega^{2} r \cos{\left (\omega t \right )}
 \end{align}
+To get the force of the piston, a pressure equation is needed. The pressure of the expansion and compression strokes are derived from the adiabatic relation $P V^{\gamma} = c$.
+The pressure of the intake and compression strokes are derived using mass flow rates and Bernoulli's equation.\\
+At the TDC, the height of the air column is given by $z = \frac{V_3}{A_C}$, where $A_C$ is the cross sectional area of the chamber.\\ Thus the volume at any point $V(t) = A_C (x(t)+z)$. \\
+\subsubsection*{Compression Stroke}
+The compression stroke is derived using adiabatic relations.
+\begin{align}
+	P_{\text{amb}} V_1^{\gamma} &= P(t) V(t)^{\gamma}\\
+	P_{\text{Compression}}(t) &= P_{\text{amb}} \Big( \frac{V_1}{A_C (x(t)+z)} \Big)^{\gamma}
+\end{align}
+\subsubsection*{Expansion Stroke} 
+The expansion stroke is derived the same way.
+\begin{align}
+	P_{4} V_4^{\gamma} &= P(t) V(t)^{\gamma}\\
+	P_{\text{Expansion}}(t) &= P_{4} \Big( \frac{V_4}{A_C (x(t)+z)} \Big)^{\gamma}
+\end{align}
+\subsubsection*{Intake/Exhaust Strokes}
+The pressure difference in the intake/exhaust strokes is made by assuming a 0 air velocity in the air chamber, and deriving the pressure difference needed to balance the air flow rates. For simplicity, the density is assumed constant.\\ Let $A_I$ be the cross sectional area of the intake valve.
+\begin{align}
+	Q &= A_I v_a \rho_{\text{amb}}\\
+	Q &= A_C v(t)\rho_{\text{amb}} \\
+	v &= \frac{A_C v(t)}{A_I}\\
+	\Delta P &= \frac{1}{2} \rho_{\text{amb}} v^2 \\
+	\Delta P &= \frac{1}{2} \rho_{\text{amb}} \Big( \frac{A_C v(t)}{A_I} \Big)^2
+\end{align}
+\subsubsection*{Forces}
+The force on the piston is by the pressure, chamber area, and acceleration term of the piston. To approximate the acceleration force on the crank shaft, the mass of the connecting rod is added to the acceleration, since the majority of the connecting rod's acceleration is the piston's linear acceleration.\\
+ Simply, $$F_{\text{Compression}} = A_C (P(t) - P_{\text{amb}}) - (m_P+m_{CR})a(t)$$\\
+ Thus the force function is given by a piecewise function. Given $\theta_c$ is the angle such that $x(t) = 9z$ and $v(t) < 0$.
+\begin{align}
+F(t) &=
+\begin{cases}
+A_C \Big(P_{4} \Big( \frac{V_4}{A_C (x(t)+z)} \Big)^{\gamma} - P_{\text{amb}}\Big) - (m_P+m_{CR})a(t) & 0^\circ \leq \omega t \mod 720^\circ \leq 180^\circ \\
+A_C \frac{1}{2} \rho_{\text{amb}} \Big( \frac{A_C v(t)}{A_I} \Big)^2 - (m_P+m_{CR})a(t) & 180^\circ < \omega t \mod 720^\circ \leq 360^\circ \\
+- A_C \frac{1}{2} \rho_{\text{amb}} \Big( \frac{A_C v(t)}{A_I} \Big)^2 - (m_P+m_{CR})a(t) & 360^\circ < \omega t \mod 720^\circ \leq 540^\circ \\
+A_C \frac{1}{2} \rho_{\text{amb}} \Big( \frac{A_C v(t)}{A_I} \Big)^2 - (m_P+m_{CR})a(t) & 540^\circ < \omega t \mod 720^\circ \leq 360^\circ + \theta_c \\
+A_C \Big( P_{\text{amb}} \Big( \frac{V_1}{A_C (x(t)+z)} \Big)^{\gamma}- P_{\text{amb}}\Big) - (m_P+m_{CR})a(t) & 360^\circ + \theta_c < \omega t \mod 720^\circ < 720^\circ \\
+\end{cases}\\
+\vec{F}(t) &= \big \langle -F(t)\ \hat{i},\ F(t) \frac{r \sin(\omega t)}{\sqrt{l^2 - r^2 \sin^2(\omega t)}}  \hat{j} \big \rangle\\
+\vec{F}_n(t) &= \vec{F}(t + 120 \degree (n-1)\omega^{-1})
+\end{align} 
+\subsection*{Shaft Calculations}
 The direction of each crank shaft is offset by 120 degrees too, so the piston cycles are offset by 120 degrees. The radius vector of each crank is given below.
 \begin{align}
-	\vec{r}_n = r_c \Big \langle \cos (\theta + 120 \degree (n-1)  )\ \hat{i},\ \sin (\theta + 120 \degree (n-1))\ \hat{j}  \Big \rangle
+	\vec{r}_n = r_c \Big \langle \cos (\omega t + 120 \degree (n-1)  )\ \hat{i},\ \sin (\omega t + 120 \degree (n-1))\ \hat{j}  \Big \rangle
 \end{align}
 For the shaft coordinates, the $\hat{k}$ vector is parallel to the axis of the shaft, from the first bearing to the second. The torque equation along the shaft is simply written out using cross products.
 \begin{align}
@@ -44,4 +92,5 @@ The maximum moment and shear stresses are given. The shear stress equation only 
 	\sigma_M (x) = \pm \frac{|\vec{M}(x)| d(x)}{2 I(x)}\\
 	\tau (x) = \frac{|T(x)| d (x)}{2 J(x)}
 \end{align}
+The deflections of the shaft are numerically integrated.
 \end{document}
