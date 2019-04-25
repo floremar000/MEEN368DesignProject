@@ -8,28 +8,28 @@
 
 \begin{document}
 \section*{Piston Calculations}
-\subsection*{Gasket Forces}
+\subsection*{Piston Ring Forces}
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=.75\textwidth]{PistonDiagram.png}
 		\caption{Ideal Gasket Forces}
 		\label{fig:diagram1}
 	\end{figure}
-	The gaskets exhibit no vertical forces on the wall. Only the horizontal force from the connected rod is considered.
-	The gaskets are simply modeled as springs connecting the piston to either side of the wall. Since the gaskets must maintain connection to the piston chamber wall, small deflections and angles are assumed. Thus small angle approximations are made.
+	The rings exhibit no vertical forces on the wall. Only the horizontal force from the connected rod is considered.
+	The rings are simply modeled as springs connecting the piston to either side of the wall. Since the rings must maintain connection to the piston chamber wall, small deflections and angles are assumed. Thus small angle approximations are made.
 	\begin{itemize}
 	\item $\theta$ is the angle the piston is rotated with respect to the vertical.
 	\item $x$ is the displacement of the piston.
-	\item $z_{G_1}$ is the vertical distance from the top of the piston head to the center of the top gasket.
-	\item $z_{G_2}$ is the vertical distance from the top of the piston head to the center of the bottom gasket.
+	\item $z_{G_1}$ is the vertical distance from the top of the piston head to the center of the top ring.
+	\item $z_{G_2}$ is the vertical distance from the top of the piston head to the center of the bottom ring.
 	\item $z_{CG}$ is the vertical distance from the top of the piston head to the center of mass.
 	\item $h_h$ is the height of the piston head.
 	\item $d_h$ is the diameter of the piston head.
 	\item $h_t$ is the height of the piston tail.
 	\item $d_t$ is the diameter of the piston tail.
-	\item $d_{go}$ and $d_{gi}$ is the inner and outer diameters of the gaskets.
-	\item $h_g$ is the gasket height.
-	\item $\Delta t$ is the thickness of the gaskets, $\frac{d_{go}-d_{gi}}{2} $
+	\item $d_{go}$ and $d_{gi}$ is the inner and outer diameters of the rings.
+	\item $h_g$ is the ring height.
+	\item $\Delta t$ is the thickness of the rings, $\frac{d_{go}-d_{gi}}{2} $
 	\end{itemize}
 	First, the center of mass of the piston is calculated
 	\begin{align}
@@ -55,41 +55,42 @@
 		x &= \frac{F_{R} \left(\alpha +\beta\right)}{2 k \left(z_{G_1}^{2} - 2 z_{G_1} z_{G_2} + z_{G_2}^{2}\right)}\\
 		\theta &= \frac{F_{R} \left(2 h_{h} + 2 h_{t} - 4 z_{CG} + z_{G_1} + z_{G_2}\right)}{2 k \left(z_{G_1}^{2} - 2 z_{G_1} z_{G_2} + z_{G_2}^{2}\right)}
 	\end{align}
-	The spring constant of the gaskets is derived in terms of material and geometric properties. To simplify calculation, the gasket will be treated as a flat area cross section.
+	The spring constant of the rings is derived in terms of material and geometric properties. To simplify calculation, the ring will be treated as a flat area cross section.
 	\begin{align}
 		\epsilon &= \frac{\sigma}{E}\\
 		\Delta t &= t \epsilon = \frac{Pt}{A_C E} \\
 		A_C &= d_{go} h_g \\
 		k &= \frac{P}{\Delta t} = \frac{d_{go} h_g E}{\Delta t}
 	\end{align}
-	\subsection*{Gasket Stresses and Pressures}
+	\subsection*{Ring Stresses and Pressures}
 	The average pressure difference from the reaction forces is given below:
 	\begin{align}
 	 \Delta p_{G_X \text{avg}} &= \frac{F_{G_X}}{d_go h_g}
 	\end{align}
-	The minimum pressure which the gaskets must be fitted to is determined by the maximum pressure of the air $p_{AM}$ and the minimum change on pressure from the piston forces.
+	The minimum pressure which the rings must be fitted to is determined by the maximum pressure of the air $p_{AM}$ and the minimum change on pressure from the piston forces.
 	\begin{align}
-	p_{\text{fit}} &\geq p_{AM} - \frac{\text{min} \{ F_{G_X}, 0 \}}{d_{go} h_g}
+	p_{\text{fit}} &\geq p_{AM} - \frac{\text{min} \{ F_{G_X}, 0 \}}{d_{go} h_g}\\
+	p_{\text{fit}} &= \frac{\Delta}{\frac{D_{hi}}{E_h} \Big( \frac{D_{ho}^2+D_{hi}^2}{D_{ho}^2-D_{hi}^2} + \nu_h \big) +\frac{D_{so}}{E_h} \Big( \frac{D_{so}^2+D_{si}^2}{D_{so}^2-D_{si}^2} + \nu_s \big) }
 	\end{align}
-	The radial gasket stress is simply the pressure on the gasket. Since the gasket is thin walled, a constant radial stress is assumed.
-	Since the gaskets are supported by the piston head, the tangential stress is derived using a thick walled pressure vessel equation, with a solid pressure vessel. Since the inner radius is 0, the resulting stresses are identical.
+	The radial ring stress is simply the pressure on the ring. Since the ring is thin walled, a constant radial stress is assumed.
+	Since the rings are supported by the piston head, the tangential stress is derived using a thick walled pressure vessel equation, with a solid pressure vessel. Since the inner radius is 0, the resulting stresses are identical.
 	\begin{align}
 		\sigma_{gr} &= -p\\
 		\sigma_{gt} &= -p
 	\end{align}
-	The pressures also attempts to push out the gasket. The push out stress is derived below. The shear force is given pressure acting on the area of the gasket directly exposed to the chamber.
+	The pressures also attempts to push out the ring. The push out stress is derived below. The shear force is given pressure acting on the area of the ring directly exposed to the chamber.
 	\begin{align}
 	 V &= \frac{\pi}{4}(d_{go}^2-d_{h}^2) p\\
 	 \tau_{\text{max}} &= \frac{3V}{2A} \\
 	 \tau_{gp} &= \frac{3V}{2 h_g \pi \frac{d_h}{2} } = \frac{3 \pi (d_{go}^2-d_{h}^2) p}{4 h_g \pi d_h} 
 	\end{align}
-	Finally, friction creates a shear force on the gasket. Since the gasket reactions are equal and opposite, $p_{\text{avg}} = p_{\text{fit}}$.
+	Finally, friction creates a shear force on the ring. Since the ring reactions are equal and opposite, $p_{\text{avg}} = p_{\text{fit}}$.
 	\begin{align}
 		V &=  \mu p_{\text{avg}} A_o \\
 		\tau_{\text{max}} &= \frac{3V}{2A_h} \\
 		\tau_{f} &= \frac{3 \mu p_{\text{fit}} d_{go}^2}{d_h^2} 
 	\end{align}
-	The minimum and maximum of each gasket stress is tabulated below for fatigue analysis.
+	The minimum and maximum of each ring stress is tabulated. Since the rings are fitted to compression, 
 	\begin{align}
 		\sigma_{gr\ \text{min}} &= \sigma_{gt\ \text{min}} = p_{\text{fit}} + \frac{\text{min} \{ F_{G_X}, 0 \}}{d_{go} h_g}\\
 		\sigma_{gr\ \text{max}} &= \sigma_{gt\ \text{max}} = p_{\text{fit}} + \frac{\text{max} \{ F_{G_X}\}}{d_{go} h_g}\\
@@ -101,7 +102,7 @@
 	\begin{align}
 		\sigma_{z\ \text{Head}} &= - p
 	\end{align}
-	In the gasket channels, a greater compression stress results from the smaller diameter and push out forces on the gasket. Stress concentration factors $K_1$ and $K_2$ are added due to the geometry.
+	In the ring channels, a greater compression stress results from the smaller diameter and push out forces on the ring. Stress concentration factors $K_1$ and $K_2$ are added due to the geometry.
 	\begin{align}
 		\sigma_{z\ \text{Pressure}} &= - K_1 p \frac{d_h^2}{d_{gi}^2} \\
 		\sigma_{z\ \text{Push Out}} &= - K_2 p \frac{d_{go}^2 - d_h^2}{d_h^2 - d_{gi}^2}\\
@@ -123,5 +124,5 @@
 		\delta_{\text{Tail}} &= - \frac{l_t p \frac{d_h^2}{d_t^2}}{E}\\ 
 		\delta_{\text{Total}} &=  \frac{l_h p -l_t p \frac{d_h^2}{d_t^2}}{E}
 	\end{align}
-	
+	Other than a negligible tensile force on the intake stroke, the piston is in compression in its entire loading cycle. Fatigue will be thusly ignored.
 \end{document}
