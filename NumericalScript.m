@@ -219,7 +219,7 @@ function NumericalScript
   ###############################
   %CrankShaft Calculations
   ###############################
-  t = 0:period/2000:2*period;
+  t = 0:period/1000:period;
   global initialPistonHeight = V_comp/chamberArea;
   
   tguess = 1.5*pi/omega;
@@ -228,18 +228,28 @@ function NumericalScript
   if omega*criticalTime <= pi
     error('Wrong Time Solution')
   endif
-  for n=1:6
-    
-    tn = t + 4*pi*(n-1)/6;
+  
+  numPistons = 6;
+  
+  pistonPosition= zeros(numPistons,length(t));
+  pistonVelocity= zeros(numPistons,length(t));
+  pistonAcceleration= zeros(numPistons,length(t));
+  gasForceMagnitude= zeros(numPistons,length(t));
+  totalForceMagnitude =zeros(numPistons,length(t));
+  tn = t;
+  for i = 2:numPistons
+    t = [t;t(1,:)+period*(i-1)/(numPistons)];
+  endfor
+  
     %Piston Position
-    pistonPosition = crankRadius + CRLength - (crankRadius.*cos(omega.*t) + sqrt(CRLength^2-crankRadius^2.*sin(omega.*t).^2));
+    pistonPosition = crankRadius + CRLength - (crankRadius.*cos(omega.*t) + sqrt(CRLength^2-(crankRadius*sin(omega*t)).^2));
     %Piston Velocty
     denm = sqrt(CRLength^2-crankRadius^2.*sin(omega.*t).^2);
     pistonVelocity = omega*crankRadius^2.*sin(omega*t).*cos(omega*t)./denm + omega*crankRadius*sin(omega*t);
     %Piston Acceleration
     denm1 = sqrt(CRLength^2-crankRadius^2.*sin(omega.*t).^2);
     denm2 = (CRLength^2-crankRadius^2.*sin(omega.*t).^2).^(1.5);
-    pistonAcceleration = omega^2*crankRadius^4*(sin(omega*t).*cos(omega*t)).^2./denm2 + omega^2*crankRadius^2*(cos(omega*t).^2-sin(omega*t).^2)/denm1 + omega^2*crankRadius*cos(omega*t);
+    pistonAcceleration = omega^2*crankRadius^4*(sin(omega*t).*cos(omega*t)).^2./denm2 + omega^2*crankRadius^2*(cos(omega*t).^2-sin(omega*t).^2)./denm1 + omega^2*crankRadius*cos(omega*t);
     
     
     disp('Starting Force Calculations')
@@ -263,9 +273,11 @@ function NumericalScript
     fCompression = fCompression.*compressionStroke;
     gasForceMagnitude = fPower+fExhaust+fIntake+fCompression;
     totalForceMagnitude = gasForceMagnitude-(pistonMass+CRMass)*pistonAcceleration;
-  endfor
-  
-  plot(t,totalForces);
+    
+    tanAlpha = crankRadius*sin(omega*t)./sqrt(CRLength^2-(crankRadius*sin(omega*t)).^2);
+    totalForceVectors = zeros([size(t),2]);
+    
+  plot(t(1,:),totalForceMagnitude);
   disp('Paused')
 
 endfunction
