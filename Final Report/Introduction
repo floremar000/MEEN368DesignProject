@@ -1,0 +1,21 @@
+Design Goals:
+	When coming up with a piston-crankshaft design, we had several design constraints that had to be met. There were to be 6 cylinders with 
+  a total volume of 3000 cubic centimeters between them. It uses a 4 stroke timing cycle and must provide at least 200 horsepower at a 
+  maximum speed of 8000 RPM. Apart from these hard constraints, we were aiming to minimize weight and cost. Both the manufacturing and 
+  cost of materials. We were aiming for a factor of safety of greater than 3 for all the components to ensure it would not fail even in the
+  event of overloading it and a fatigue factor of safety of 1.5 to ensure the piston life accurately matches the fatigue life calculation. 
+  We also aimed to model our combustion cycle with an Atkinson cycle instead of the standard otto or diesel cycle for reasons which will 
+  be described later on.
+
+\begin{center}
+\begin{tabular}{ |c|c|c|c|c|c|c|c| } 
+ \hline
+ \textbf{\underline{Material}} & {\underline{$\rho(kg/m^3) $}} & {\underline{E(GPa)}} & {\underline{$\nu$}} & {\underline{$\sigma_{y}(MPa)$}}& {\underline{$\sigma_{ut}(MPa)$}} & {\underline{Specific Strength(kNm/kg}}\\
+Cast Iron & 7340 & 150 & 0.31 & 162 & 600 & 85.7 \\
+6061 Aluminum & 2700 & 68.9 & 0.33 & 276 & 310  & 115\\
+AISI 4130 Steel & 7850 & 205 & 0.29 & 435 & 670 & 85.35\\
+SAE 945A HSLA Steel & 7750 & 200 & 0.285 & 310 & 450 & 58.06\\
+
+ \hline
+\end{tabular}
+\end{center}
