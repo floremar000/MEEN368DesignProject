@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.3.29)  29 APR 2019 01:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.3.29)  29 APR 2019 10:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -468,35 +468,46 @@ Package: subcaption 2016/02/20 v1.1-142 Sub-captions (AR)
 )
 (/usr/share/texlive/texmf-dist/tex/latex/was/gensymb.sty
 Package: gensymb 2003/07/02 v1.0 (WaS)
-) (./FinalReport.aux)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count104
+\float@exts=\toks23
+\float@box=\box29
+\@float@everytoks=\toks24
+\@floatcapt=\box30
+) (./FinalReport.aux
+
+LaTeX Warning: Label `fig:diagram1' multiply defined.
+
+)
 \openout1 = `FinalReport.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-
-(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+ (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count104
+\scratchcounter=\count105
 \scratchdimen=\dimen123
-\scratchbox=\box29
-\nofMPsegments=\count105
-\nofMParguments=\count106
-\everyMPshowfont=\toks23
-\MPscratchCnt=\count107
+\scratchbox=\box31
+\nofMPsegments=\count106
+\nofMParguments=\count107
+\everyMPshowfont=\toks25
+\MPscratchCnt=\count108
 \MPscratchDim=\dimen124
-\MPnumerator=\count108
-\makeMPintoPDFobject=\count109
-\everyMPtoPDFconversion=\toks24
+\MPnumerator=\count109
+\makeMPintoPDFobject=\count110
+\everyMPtoPDFconversion=\toks26
 ) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
@@ -546,71 +557,83 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Info: Redefining \celsius on input line 13.
-Package gensymb Info: Faking symbols for \degree and \celsius on input line 13.
+LaTeX Info: Redefining \celsius on input line 14.
+Package gensymb Info: Faking symbols for \degree and \celsius on input line 14.
 
 
 
 Package gensymb Warning: Not defining \perthousand.
 
-LaTeX Info: Redefining \ohm on input line 13.
-Package gensymb Info: Using \Omega for \ohm on input line 13.
+LaTeX Info: Redefining \ohm on input line 14.
+Package gensymb Info: Using \Omega for \ohm on input line 14.
 
 Package gensymb Warning: Not defining \micro.
 
 [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-<ThermoDiagram.png, id=8, 413.29407pt x 352.31625pt>
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [1]
+<ThermoDiagram.png, id=13, 413.29407pt x 352.31625pt>
 File: ThermoDiagram.png Graphic file (type png)
  <use ThermoDiagram.png>
-Package pdftex.def Info: ThermoDiagram.png used on input line 41.
+Package pdftex.def Info: ThermoDiagram.png used on input line 45.
 (pdftex.def)             Requested size: 172.5pt x 147.05254pt.
-LaTeX Font Info:    Try loading font information for U+msa on input line 50.
+LaTeX Font Info:    Try loading font information for U+msa on input line 54.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 50.
+LaTeX Font Info:    Try loading font information for U+msb on input line 54.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1 <./ThermoDiagram.png>] [2] [3] <CrankDiagram.png, id=27, 1589.94pt x 5036.
+) [2 <./ThermoDiagram.png>] [3] [4] <CrankDiagram.png, id=30, 1589.94pt x 5036.
 8175pt>
 File: CrankDiagram.png Graphic file (type png)
 
 <use CrankDiagram.png>
-Package pdftex.def Info: CrankDiagram.png used on input line 147.
+Package pdftex.def Info: CrankDiagram.png used on input line 151.
 (pdftex.def)             Requested size: 58.64937pt x 185.75986pt.
 
-Underfull \hbox (badness 6380) in paragraph at lines 149--149
+Underfull \hbox (badness 6380) in paragraph at lines 153--153
 []|\OT1/cmr/m/it/5 Used with per-mis-sion from
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 159--161
+Underfull \hbox (badness 10000) in paragraph at lines 163--165
 
  []
 
-[4 <./CrankDiagram.png>]
-Overfull \hbox (98.49579pt too wide) in paragraph at lines 206--206
+[5 <./CrankDiagram.png>]
+Overfull \hbox (12.58485pt too wide) in paragraph at lines 210--210
 [] 
  []
 
-[5] [6] (./FinalReport.aux)
+[6] [7] [8] <PistonDiagram.png, id=48, 260.172pt x 260.172pt>
+File: PistonDiagram.png Graphic file (type png)
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+<use PistonDiagram.png>
+Package pdftex.def Info: PistonDiagram.png used on input line 270.
+(pdftex.def)             Requested size: 258.75pt x 258.76202pt.
+ [9 <./PistonDiagram.png>]
+Overfull \hbox (11.35065pt too wide) in paragraph at lines 292--292
+[] 
+ []
+
+[10] [11] [12] [13] [14] [15] [16] (./FinalReport.aux)
+
+LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 3903 strings out of 493029
- 55397 string characters out of 6136234
- 126350 words of memory out of 5000000
- 7383 multiletter control sequences out of 15000+600000
+ 3956 strings out of 493029
+ 56148 string characters out of 6136234
+ 127766 words of memory out of 5000000
+ 7431 multiletter control sequences out of 15000+600000
  8102 words of font info for 31 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,18n,39p,465b,310s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,18n,39p,561b,312s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/tex
@@ -623,10 +646,10 @@ s/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1
 s/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
 y10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb
 ></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb>
-Output written on FinalReport.pdf (7 pages, 283851 bytes).
+Output written on FinalReport.pdf (17 pages, 339324 bytes).
 PDF statistics:
- 84 PDF objects out of 1000 (max. 8388607)
- 58 compressed objects within 1 object stream
+ 117 PDF objects out of 1000 (max. 8388607)
+ 79 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

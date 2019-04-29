@@ -1,4 +1,4 @@
-# Created by Octave 5.1.0, Sun Apr 28 23:42:36 2019 CDT <andrew@Anti-Communist-Benzene>
+# Created by Octave 5.1.0, Mon Apr 29 09:41:53 2019 CDT <andrew@Anti-Communist-Benzene>
 # name: C1
 # type: matrix
 # ndims: 3
@@ -330,7 +330,7 @@
 
 # name: PFit
 # type: scalar
-47315729.338723525
+63656804.119150698
 
 
 # name: P_amb
@@ -174659,7 +174659,7 @@
 
 # name: denm
 # type: scalar
-1.4988673109590759e-12
+1.1140992857142857e-12
 
 
 # name: denm1
@@ -174832,22 +174832,22 @@
 
 # name: maxRingRadialStress
 # type: scalar
-59934726.395653874
+76275801.176081046
 
 
 # name: maxRingShearStress
 # type: scalar
-17963815.910834692
+20684142.933999203
 
 
 # name: maxRingTangentStress
 # type: scalar
-59934726.395653874
+76275801.176081046
 
 
 # name: maxRingVonMises
 # type: scalar
-67529752.512185037
+84270393.091496691
 
 
 # name: maxShaftMoment
@@ -174867,7 +174867,7 @@
 
 # name: meanRingShearStress
 # type: scalar
-5043542.2459893059
+5043542.2459893068
 
 
 # name: meanRingVonMises
@@ -174882,17 +174882,17 @@
 
 # name: minRingRadialStress
 # type: scalar
-34696732.281793177
+51037807.06222035
 
 
 # name: minRingShearStress
 # type: scalar
--7876731.4188560806
+-10597058.442020589
 
 
 # name: minRingTangentStress
 # type: scalar
-34696732.281793177
+51037807.06222035
 
 
 # name: mu
@@ -174939,7 +174939,7 @@
 
 # name: pistonAlternatingAxialVonMises
 # type: scalar
-27048731.343273036
+54097462.686546072
 
 
 # name: pistonAmpPushOutVonMises
@@ -174964,17 +174964,17 @@
 
 # name: pistonChannelMaxStress
 # type: scalar
--14692692.060485562
+-41513727.96993909
 
 
 # name: pistonChannelPressureStress
 # type: scalar
--529115.44764041447
+-8165361.8463026937
 
 
 # name: pistonChannelPushoutStress
 # type: scalar
--3668796.5696411747
+-3695703.2879656176
 
 
 # name: pistonChordArea
@@ -177095,7 +177095,7 @@
 
 # name: ringOuterDiameter
 # type: scalar
-0.078870919999999997
+0.078899999999999998
 
 
 # name: samples
