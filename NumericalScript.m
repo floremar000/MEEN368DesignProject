@@ -15,10 +15,10 @@ function NumericalScript
   %http://www.matweb.com/search/DataSheet.aspx?MatGUID=0c178ad6ab2149d4a52a85a13645cc1a
   %https://www.ductile.org/didata/Section3/3part1.htm#Fatigue%20Limit
   ringMat = struct('E',168*10^9,'v',.29,'Sy',332*10^6,'Sut',464*10^6,'SeN',117*10^6,'rho',7.15*1000); %Si Units
-  %310 Stainless Steel: High Creep Resistance and Temperature Resistance 
-  pistonMat = struct('E',200*10^9,'v',.29,'Sy',205*10^6,'Sut',515*10^6,'rho',7750); %Si Units
+  %Titanium Ti-6Al-4V 
+  pistonMat = struct('E',113.8*10^9,'v',.29,'Sy',880*10^6,'Sut',950*10^6,'Se',510*10^6,'rho',4430); %Si Units
   chamberMat = pistonMat;
-
+  crankShaftMat = struct('E',200*10^9,'v',.29,'Sy',580*10^6,'Sut',690*10^6,'rho',7850); %Si Units
 
   ########################
   %Thermo Cycle Variables
@@ -79,7 +79,7 @@ function NumericalScript
   pistonForceHeight = pistonTailHeight/2;
   angle = 2*acos(pistonJointDiameter/pistonTailDiameter);
   pistonChordArea = pistonTailDiameter^2*(angle - sin(angle))/8;
-  pistonVolume = pistonHeadArea*pistonHeadHeight + pistonTailArea*pistonTailHeight;
+  pistonVolume = pistonHeadArea*pistonHeadHeight - .8^2*pistonHeadArea*pistonHeadHeight + pistonTailArea*pistonTailHeight;
   pistonCoM = (pistonHeadArea*pistonHeadHeight*(pistonHeadHeight/2) + pistonTailArea*pistonTailHeight*(pistonHeadHeight+pistonTailHeight/2))/pistonVolume;
   pistonMass = pistonMat.rho*pistonVolume;
   %Piston Channel
@@ -89,33 +89,115 @@ function NumericalScript
   %Stress Concentration in Channels
   %Round shaft with flat-bottom groove in bending and/or tension.
   pistonChannelConcentrationFactor = 3.5;
+  numPistons = 6;
   %Intake Hole
   intakeArea = chamberArea/5;
 
   %Rings
-  interference = .08/1000;
+  interference = .0009*chamberDiameter;
   ringOuterDiameter = chamberDiameter + interference;
   ringInnerDiameter = pistonChannelDiameter;
-  ringHeight = 10/1000;
+  ringHeight = 5/1000;
   ringLocHeight = 15/1000;
   ringLocHeight2 = pistonHeadHeight-15/1000;
 
   %Connecting Rod
   global CRLength = 16/100; %m
-  CRMass = .5*pistonMass;
+  CRMass = 1;
   
-  %CrankShaft
+  %CrankShaft Geometry
   global crankRadius = pistonSweep/2; %m
+  crankLength = pistonHeadDiameter;
+  shaftLength = pistonHeadDiameter;
+  crankConnectorThickness = 20/1000;
+  crankShaftSubsectionLength = crankLength + shaftLength + 2*crankConnectorThickness;
+  shaftBearingDistance = 30/1000;
+  crankShaftLength = shaftBearingDistance +crankShaftSubsectionLength*6;
+  shaftDiameter = 675/1000;
+  crankDiameter = shaftDiameter;
+  shaftI = pi*shaftDiameter^4/(4*2^4);
+  crankI  = pi*crankDiameter^4/(4*2^4);
+  crankConnectorI = shaftDiameter*(crankRadius+shaftDiameter/2+crankDiameter/2)^3/12;
   %MaxTanAlpha
   maxTan = crankRadius/sqrt(CRLength^2-crankRadius^2);
   %TODO Ensure connecting rod doesn't collide with chamber.
-
+  
+  
   ##############################
-  %Piston and Ring Calculations
+  %Forces
+  ##############################  
+  samples = 100;
+  t = 0:period/samples:period;
+  global initialPistonHeight = V_comp/chamberArea;
+  
+  tguess = 1.5*pi/omega;
+  criticalTime = fzero(@pistonPositionSol,tguess);
+  criticalTime = mod(criticalTime,2*pi);
+  if omega*criticalTime <= pi
+    error('Wrong Time Solution')
+  endif
+  timeSamples = length(t);
+  pistonPosition= zeros(numPistons,timeSamples);
+  pistonVelocity= zeros(numPistons,timeSamples);
+  pistonAcceleration= zeros(numPistons,timeSamples);
+  gasForceMagnitude= zeros(numPistons,timeSamples);
+  totalForceMagnitude =zeros(numPistons,timeSamples);
+  tn = t;
+  for i = 2:numPistons
+    t = [t;t(1,:)+period*(i-1)/(numPistons)];
+  endfor
+
+  %Piston Position
+  pistonPosition = crankRadius + CRLength - (crankRadius.*cos(omega.*t) + sqrt(CRLength^2-(crankRadius*sin(omega*t)).^2));
+  %Piston Velocty
+  denm = sqrt(CRLength^2-crankRadius^2.*sin(omega.*t).^2);
+  pistonVelocity = omega*crankRadius^2.*sin(omega*t).*cos(omega*t)./denm + omega*crankRadius*sin(omega*t);
+  %Piston Acceleration
+  denm1 = sqrt(CRLength^2-crankRadius^2.*sin(omega.*t).^2);
+  denm2 = (CRLength^2-crankRadius^2.*sin(omega.*t).^2).^(1.5);
+  pistonAcceleration = omega^2*crankRadius^4*(sin(omega*t).*cos(omega*t)).^2./denm2 + omega^2*crankRadius^2*(cos(omega*t).^2-sin(omega*t).^2)./denm1 + omega^2*crankRadius*cos(omega*t);
+  
+  
+  disp('Starting Force Calculations')
+  %Stroke Timing
+  powerStroke = (mod(omega*t,4*pi) <= pi)&(mod(omega*t,4*pi) >= 0);
+  exhaustStroke = ((mod(omega*t,4*pi) <= 2*pi)&(mod(omega*t,4*pi) > pi))|((mod(omega*t,4*pi) <= 2*pi + omega*criticalTime)&(mod(omega*t,4*pi) > 3*pi));
+  intakeStroke = ((mod(omega*t,4*pi) <= 3*pi)&(mod(omega*t,4*pi) > 2*pi));
+  compressionStroke = ((mod(omega*t,4*pi) < 4*pi)&(mod(omega*t,4*pi) > 2*pi+omega*criticalTime));
+  %Gas Force Calculations
+  fPower = chamberArea*(P3*(V_comp./(chamberArea*(pistonPosition+initialPistonHeight))).^gamma - P_amb);
+  fPower = fPower.*powerStroke;
+    
+  fExhaust = .5*rho_amb*chamberArea.*(chamberArea*pistonVelocity/intakeArea).^2;
+  fExhaust = fExhaust.*exhaustStroke;
+    
+  fIntake = -.5*rho_amb*chamberArea.*(chamberArea*pistonVelocity/intakeArea).^2;
+  fIntake = fIntake.*intakeStroke;
+    
+  fCompression = chamberArea.*(P_amb*(10*initialPistonHeight./(pistonPosition+initialPistonHeight)).^gamma - P_amb);
+  fCompression = fCompression.*compressionStroke;
+  gasForceMagnitude = fPower+fExhaust+fIntake+fCompression;
+  totalForceMagnitude = gasForceMagnitude-(pistonMass+CRMass)*pistonAcceleration;
+  totalPistonForceMagnitude = gasForceMagnitude-(pistonMass)*pistonAcceleration;
+  %Rows are time vector
+  %Columns are different pistons
+  %3rd is vecotrs i and j.
+  tanAlpha = crankRadius*sin(omega*t)./sqrt(CRLength^2-(crankRadius*sin(omega*t)).^2);
+  totalForceVectors = zeros([size(t),3]);
+  totalForceVectors(:,:,1) = -totalForceMagnitude;
+  totalPistonForceVectors(:,:,1) = -totalPistonForceMagnitude;
+  totalForceVectors(:,:,2) = tanAlpha.*totalForceMagnitude;
+  totalPistonForceVectors(:,:,2) = tanAlpha.*totalPistonForceMagnitude;
+  
+  plot(t(1,:),totalForceVectors(:,:,1));
+  
+  
+  ##############################
+  %Ring Calculations
   ##############################
   %Input Forces
-  maxPForce = P3*chamberArea;
-  maxReForce = maxPForce*maxTan;
+  maxPForce = max(max(abs(totalPistonForceVectors(:,:,1))));
+  maxReForce = max(max(abs(totalPistonForceVectors(:,:,2))));
   %Spring Constant
   k = chamberDiameter*ringHeight*ringMat.E/(.5*(chamberDiameter-ringInnerDiameter));
   %Solving Geometric Constants
@@ -169,22 +251,24 @@ function NumericalScript
     disp(maxRingVonMises/ringMat.Sy)
     error("Ring stresses exceed factor of safety.")
   endif
+  
+  
   ###############################
   %Piston Stresses and Deflection
   ###############################
-  pistonHeadStress = -P3;
+  pistonHeadStress = -maxPForce/pistonHeadArea;
   pistonChannelPressureStress = pistonHeadStress*pistonHeadDiameter^2/(pistonChannelDiameter);
   pistonChannelPushoutStress = -P3*(ringOuterDiameter^2-pistonHeadDiameter^2)/(pistonHeadDiameter^2-ringInnerDiameter^2);
   pistonChannelMaxStress = pistonChannelConcentrationFactor*(pistonChannelPressureStress+pistonChannelPushoutStress);
 
-  pistonTailStress = -P3*chamberDiameter^2/pistonTailDiameter^2;
+  pistonTailStress = -maxPForce/pistonTailArea;
   pistonTailMaxStress = pistonTailStressConcentration*pistonTailStress;
-  pistonJointStress = -P3*chamberDiameter^2/pistonJointDiameter^2;
 
   pistonJointShearStress = 3*maxReForce/(4*pistonChordArea);
-  pistonJointNormalStress = maxPForce/(pistonTailArea-2*pistonChordArea);
+  pistonJointNormalStress = -maxPForce/(pistonTailArea-2*pistonChordArea);
+  pistonJointPulloutStress = maxPForce/(2*pistonChordArea);
 
-  [pistonMaxVonMises, maxindex] = max([abs(pistonJointNormalStress),abs(sqrt(3)*pistonJointShearStress),abs(pistonTailMaxStress), abs(pistonChannelMaxStress)]);
+  [pistonMaxVonMises, maxindex] = max([abs(pistonJointNormalStress),abs(sqrt(3)*pistonJointShearStress),abs(pistonTailMaxStress), abs(pistonChannelMaxStress),abs(pistonJointPulloutStress)]);
   %Axial go from roughly 0 to max. Mean stress is compressive.
   pistonAlternatingAxialVonMises = max([abs(pistonJointNormalStress)/.85,abs(pistonTailMaxStress)/.85, abs(pistonChannelMaxStress)/.85])/2;
   %Push Out Fatigue
@@ -216,68 +300,111 @@ function NumericalScript
   pistonTailDeflection = pistonForceHeight*pistonTailStress/pistonMat.E;
   pistonTotalDeflection = pistonHeadDeflection + pistonTailDeflection;
 
+  
   ###############################
   %CrankShaft Calculations
   ###############################
-  t = 0:period/1000:period;
-  global initialPistonHeight = V_comp/chamberArea;
+  radiusVectors = zeros([size(t),3]);
+  radiusVectors(:,:,1) = crankRadius*cos(omega*t);
+  radiusVectors(:,:,2) = crankRadius*sin(omega*t);
   
-  tguess = 1.5*pi/omega;
-  criticalTime = fzero(@pistonPositionSol,tguess);
-  criticalTime = mod(criticalTime,2*pi);
-  if omega*criticalTime <= pi
-    error('Wrong Time Solution')
-  endif
+
+  R1 = zeros([1,timeSamples,3]);
+  R2 = zeros([1,timeSamples,3]);
   
-  numPistons = 6;
-  
-  pistonPosition= zeros(numPistons,length(t));
-  pistonVelocity= zeros(numPistons,length(t));
-  pistonAcceleration= zeros(numPistons,length(t));
-  gasForceMagnitude= zeros(numPistons,length(t));
-  totalForceMagnitude =zeros(numPistons,length(t));
-  tn = t;
-  for i = 2:numPistons
-    t = [t;t(1,:)+period*(i-1)/(numPistons)];
+  for i = 1:numPistons
+    R2 = R2-totalForceVectors(i,:,:)*(crankShaftSubsectionLength*(i-1)+shaftBearingDistance+crankLength/2+crankConnectorThickness)/crankShaftLength;
+  endfor
+  R1 = -R2;
+  for i = 1:numPistons
+    R1 = R1 - totalForceVectors(i,:,:);
   endfor
   
-    %Piston Position
-    pistonPosition = crankRadius + CRLength - (crankRadius.*cos(omega.*t) + sqrt(CRLength^2-(crankRadius*sin(omega*t)).^2));
-    %Piston Velocty
-    denm = sqrt(CRLength^2-crankRadius^2.*sin(omega.*t).^2);
-    pistonVelocity = omega*crankRadius^2.*sin(omega*t).*cos(omega*t)./denm + omega*crankRadius*sin(omega*t);
-    %Piston Acceleration
-    denm1 = sqrt(CRLength^2-crankRadius^2.*sin(omega.*t).^2);
-    denm2 = (CRLength^2-crankRadius^2.*sin(omega.*t).^2).^(1.5);
-    pistonAcceleration = omega^2*crankRadius^4*(sin(omega*t).*cos(omega*t)).^2./denm2 + omega^2*crankRadius^2*(cos(omega*t).^2-sin(omega*t).^2)./denm1 + omega^2*crankRadius*cos(omega*t);
-    
-    
-    disp('Starting Force Calculations')
-      
-    powerStroke = (mod(omega*t,4*pi) <= pi)&(mod(omega*t,4*pi) >= 0);
-    exhaustStroke = ((mod(omega*t,4*pi) <= 2*pi)&(mod(omega*t,4*pi) > pi))|((mod(omega*t,4*pi) <= 2*pi + omega*criticalTime)&(mod(omega*t,4*pi) > 3*pi));
-    intakeStroke = ((mod(omega*t,4*pi) <= 3*pi)&(mod(omega*t,4*pi) > 2*pi));
-    compressionStroke = ((mod(omega*t,4*pi) < 4*pi)&(mod(omega*t,4*pi) > 2*pi+omega*criticalTime));
+  crankShaftLocations = 0:crankShaftLength/samples:crankShaftLength;
+  numLocations = length(crankShaftLocations);
+  %Crank Shaft Internal Reaction Equations
+  crankShaftTorque = zeros([1,timeSamples,3,numLocations]);
+  for i = 1:numLocations
+    loc = crankShaftLocations(i);
+    for j = 1:numPistons
+      crankShaftTorque(1,:,:,i) = crankShaftTorque(1,:,:,i) + cross(totalForceVectors(j,:,:),radiusVectors(j,:,:),3)*heaviside(loc-crankShaftSubsectionLength*(j-1)-shaftBearingDistance-crankLength/2-crankConnectorThickness);
+    endfor
+  endfor
+  
+  
+  crankShaftShear = zeros([1,timeSamples,3,numLocations]);
+  for i = 1:numLocations
+    loc = crankShaftLocations(i);
+    crankShaftShear(1,:,:,i) = R1*heaviside(loc);
+    for j = 1:numPistons
+      crankShaftShear(1,:,:,i) = crankShaftShear(1,:,:,i) + totalForceVectors(j,:,:)*heaviside(loc-crankShaftSubsectionLength*(j-1)-shaftBearingDistance-crankLength/2-crankConnectorThickness);
+    endfor
+    crankShaftShear(1,:,:,i) = crankShaftShear(1,:,:,i)  + R2*heaviside(loc-crankShaftLength);
+  endfor
+  
+  crankShaftMoment = zeros([1,timeSamples,3,numLocations]);
+  for i = 1:numLocations
+    loc = crankShaftLocations(i);
+    crankShaftMoment(1,:,:,i) = R1*heaviside(loc)*loc;
+    for j = 1:numPistons
+      arm = loc-crankShaftSubsectionLength*(j-1)-shaftBearingDistance-crankLength/2-crankConnectorThickness;
+      crankShaftMoment(1,:,:,i) = crankShaftMoment(1,:,:,i) + totalForceVectors(j,:,:)*heaviside(arm)*arm;
+    endfor
+    crankShaftMoment(1,:,:,i) = crankShaftMoment(1,:,:,i)  + R2*heaviside(loc-crankShaftLength)*(loc-crankShaftLength);
+  endfor
+  
+  crankShaftSlope = zeros([1,timeSamples,3,numLocations]);
+  for i = 1:numLocations
+    loc = crankShaftLocations(i);
+    crankShaftSlope(1,:,:,i) = .5*R1*heaviside(loc)*loc.^2;
+    for j = 1:numPistons
+      arm = loc-crankShaftSubsectionLength*(j-1)-shaftBearingDistance-crankLength/2-crankConnectorThickness;
+      crankShaftSlope(1,:,:,i) = crankShaftSlope(1,:,:,i) + .5*totalForceVectors(j,:,:)*heaviside(arm)*arm.^2;
+    endfor
+  endfor
 
-      
-    fPower = chamberArea*(P3*(V_comp./(chamberArea*(pistonPosition+initialPistonHeight))).^gamma - P_amb);
-    fPower = fPower.*powerStroke;
-      
-    fExhaust = .5*rho_amb*chamberArea.*(chamberArea*pistonVelocity/intakeArea).^2;
-    fExhaust = fExhaust.*exhaustStroke;
-      
-    fIntake = -.5*rho_amb*chamberArea.*(chamberArea*pistonVelocity/intakeArea).^2;
-    fIntake = fIntake.*intakeStroke;
-      
-    fCompression = chamberArea.*(P_amb*(10*initialPistonHeight./(pistonPosition+initialPistonHeight)).^gamma - P_amb);
-    fCompression = fCompression.*compressionStroke;
-    gasForceMagnitude = fPower+fExhaust+fIntake+fCompression;
-    totalForceMagnitude = gasForceMagnitude-(pistonMass+CRMass)*pistonAcceleration;
     
-    tanAlpha = crankRadius*sin(omega*t)./sqrt(CRLength^2-(crankRadius*sin(omega*t)).^2);
-    totalForceVectors = zeros([size(t),2]);
-    
-  plot(t(1,:),totalForceMagnitude);
+  crankShaftDisplacement = zeros([1,timeSamples,3,numLocations]);
+  for i = 1:numLocations
+    loc = crankShaftLocations(i);
+    crankShaftDisplacement(1,:,:,i) = R1*heaviside(loc)*loc.^3/6;
+    for j = 1:numPistons
+      arm = loc-crankShaftSubsectionLength*(j-1)-shaftBearingDistance-crankLength/2-crankConnectorThickness;
+      crankShaftDisplacement(1,:,:,i) = crankShaftDisplacement(1,:,:,i) + totalForceVectors(j,:,:)*heaviside(arm)*arm.^3/6;
+    endfor
+  endfor
+  
+  C1 = -crankShaftDisplacement(1,:,:,end)/crankShaftLength;
+  for i = 1:numLocations
+    loc = crankShaftLocations(i);
+    crankShaftSlope(1,:,:,i) = crankShaftSlope(1,:,:,i) + C1;
+    crankShaftDisplacement(1,:,:,i) = crankShaftDisplacement(1,:,:,i) + C1*loc;
+  endfor
+  crankShaftSlope = crankShaftSlope/(pistonMat.E*shaftI);
+  crankShaftDisplacement = crankShaftDisplacement/(pistonMat.E*shaftI);
+  
+  crankShaftSlopeMag = crankShaftSlope(1,:,1,:).^2+crankShaftSlope(1,:,2,:).^2;
+  crankShaftSlopeMag = sqrt(crankShaftSlopeMag);
+  crankShaftSlopeMax = max(max(crankShaftSlopeMag));
+  
+  crankShaftMomentMag = crankShaftMoment(1,:,1,:).^2 + crankShaftMoment(1,:,2,:).^2;
+  crankShaftMomentMag = sqrt(crankShaftMomentMag);
+  maxShaftMoment = max(max(abs(crankShaftMomentMag)));
+  crankShaftMomentStress = maxShaftMoment*shaftDiameter/(2*shaftI);
+  
+  crankShaftTorqueMax = max(max(max(abs(crankShaftTorque))));
+  crankShaftShearStress = crankShaftTorqueMax*shaftDiameter/(4*shaftI);
+  
+  crankShaftVonMises = sqrt(crankShaftMomentStress+3*crankShaftShearStress);
+  
+  if 3*crankShaftVonMises > pistonMat.Sy
+    error('Crank Shaft fails to meet FoS')
+  endif
+  
+  
+  
+  plot(crankShaftLocations,crankShaftSlope(1,1,1,:));
+  
   disp('Paused')
 
 endfunction
