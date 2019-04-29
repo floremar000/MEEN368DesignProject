@@ -26,7 +26,7 @@ function NumericalScript
 
   CR = 10;
   %State 1
-  P_amb = 101325; %Pa
+  P_amb = 101325; %kPa
   T_amb = 288; %K
   rho_amb = 1.225; %kg/m^3
   v_amb = 1/rho_amb; %m^3/kg
@@ -46,7 +46,7 @@ function NumericalScript
   rho4 = .777;
   v_4 = 1/rho4;
   %Cycle Properties
-  w = (u3-u4)-(u2-u4)-P_amb*(v_comp-v_amb);
+  w = (u3-u4)-(u2-u_amb)-P_amb*(v_comp-v_amb)/1000;
   airMass = engineV/(6*(v_4-v_comp));
   Pow = 6*airMass*w*f/2;
   
@@ -108,12 +108,12 @@ function NumericalScript
   %CrankShaft Geometry
   global crankRadius = pistonSweep/2; %m
   crankLength = pistonHeadDiameter;
-  shaftLength = pistonHeadDiameter;
+  shaftLength = 10/1000;
   crankConnectorThickness = 20/1000;
   crankShaftSubsectionLength = crankLength + shaftLength + 2*crankConnectorThickness;
   shaftBearingDistance = 30/1000;
   crankShaftLength = shaftBearingDistance +crankShaftSubsectionLength*6;
-  shaftDiameter = 675/1000;
+  shaftDiameter = 62/1000;
   crankDiameter = shaftDiameter;
   shaftI = pi*shaftDiameter^4/(4*2^4);
   crankI  = pi*crankDiameter^4/(4*2^4);
@@ -406,7 +406,7 @@ function NumericalScript
   plot(crankShaftLocations,crankShaftSlope(1,1,1,:));
   
   disp('Paused')
-
+ save vars.mat
 endfunction
 
 function pisPos = pistonPositionSol(t)
