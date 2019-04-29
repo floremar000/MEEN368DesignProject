@@ -126,7 +126,7 @@ function NumericalScript
   ##############################
   %Forces
   ##############################  
-  samples = 1000;
+  samples = 10;
   t = 0:period/samples:period;
   global initialPistonHeight = V_comp/chamberArea;
   
