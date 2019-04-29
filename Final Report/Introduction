@@ -1,0 +1,8 @@
+Design Goals:
+	When coming up with a piston-crankshaft design, we had several design constraints that had to be met. There were to be 6 cylinders with 
+  a total volume of 3000 cubic centimeters between them. It uses a 4 stroke timing cycle and must provide at least 200 horsepower at a 
+  maximum speed of 8000 RPM. Apart from these hard constraints, we were aiming to minimize weight and cost. Both the manufacturing and 
+  cost of materials. We were aiming for a factor of safety of greater than 3 for all the components to ensure it would not fail even in the
+  event of overloading it and a fatigue factor of safety of 1.5 to ensure the piston life accurately matches the fatigue life calculation. 
+  We also aimed to model our combustion cycle with an Atkinson cycle instead of the standard otto or diesel cycle for reasons which will 
+  be described later on.
