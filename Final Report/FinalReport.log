@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.3.29)  29 APR 2019 10:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.3.29)  29 APR 2019 12:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -577,14 +577,14 @@ Package gensymb Warning: Not defining \micro.
 <ThermoDiagram.png, id=13, 413.29407pt x 352.31625pt>
 File: ThermoDiagram.png Graphic file (type png)
  <use ThermoDiagram.png>
-Package pdftex.def Info: ThermoDiagram.png used on input line 45.
+Package pdftex.def Info: ThermoDiagram.png used on input line 49.
 (pdftex.def)             Requested size: 172.5pt x 147.05254pt.
-LaTeX Font Info:    Try loading font information for U+msa on input line 54.
+LaTeX Font Info:    Try loading font information for U+msa on input line 58.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 54.
+LaTeX Font Info:    Try loading font information for U+msb on input line 58.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -593,45 +593,146 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: CrankDiagram.png Graphic file (type png)
 
 <use CrankDiagram.png>
-Package pdftex.def Info: CrankDiagram.png used on input line 151.
+Package pdftex.def Info: CrankDiagram.png used on input line 155.
 (pdftex.def)             Requested size: 58.64937pt x 185.75986pt.
 
-Underfull \hbox (badness 6380) in paragraph at lines 153--153
+Underfull \hbox (badness 6380) in paragraph at lines 157--157
 []|\OT1/cmr/m/it/5 Used with per-mis-sion from
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 163--165
+Underfull \hbox (badness 10000) in paragraph at lines 167--169
 
  []
 
-[5 <./CrankDiagram.png>]
-Overfull \hbox (12.58485pt too wide) in paragraph at lines 210--210
+<Selection_364.png, id=31, 942.52126pt x 500.87125pt>
+File: Selection_364.png Graphic file (type png)
+ <use Selection_364.png>
+Package pdftex.def Info: Selection_364.png used on input line 177.
+(pdftex.def)             Requested size: 345.0pt x 183.34pt.
+
+<Selection_363.png, id=32, 929.4725pt x 479.7925pt>
+File: Selection_363.png Graphic file (type png)
+ <use Selection_363.png>
+Package pdftex.def Info: Selection_363.png used on input line 181.
+(pdftex.def)             Requested size: 345.0pt x 178.08415pt.
+
+[5 <./CrankDiagram.png>] <Selection_362.png, id=39, 953.5625pt x 495.8525pt>
+File: Selection_362.png Graphic file (type png)
+
+<use Selection_362.png>
+Package pdftex.def Info: Selection_362.png used on input line 185.
+(pdftex.def)             Requested size: 345.0pt x 179.39955pt.
+ [6 <./Selection_364.png> <./Selection_363.png> <./Selection_362.png>]
+Overfull \hbox (12.58485pt too wide) in paragraph at lines 226--226
 [] 
  []
 
-[6] [7] [8] <PistonDiagram.png, id=48, 260.172pt x 260.172pt>
+[7] <Selection_361.png, id=48, 942.52126pt x 486.81876pt>
+File: Selection_361.png Graphic file (type png)
+
+<use Selection_361.png>
+Package pdftex.def Info: Selection_361.png used on input line 229.
+(pdftex.def)             Requested size: 345.0pt x 178.1962pt.
+ [8 <./Selection_361.png>]
+<Selection_360.png, id=52, 917.4275pt x 481.8pt>
+File: Selection_360.png Graphic file (type png)
+ <use Selection_360.png>
+Package pdftex.def Info: Selection_360.png used on input line 247.
+(pdftex.def)             Requested size: 345.0pt x 181.18181pt.
+
+<Selection_359.png, id=53, 981.6675pt x 484.81125pt>
+File: Selection_359.png Graphic file (type png)
+ <use Selection_359.png>
+Package pdftex.def Info: Selection_359.png used on input line 251.
+(pdftex.def)             Requested size: 345.0pt x 170.38185pt.
+
+<Selection_358.png, id=54, 1006.76125pt x 494.84875pt>
+File: Selection_358.png Graphic file (type png)
+ <use Selection_358.png>
+Package pdftex.def Info: Selection_358.png used on input line 255.
+(pdftex.def)             Requested size: 345.0pt x 169.57529pt.
+
+<Selection_357.png, id=55, 990.70125pt x 493.845pt>
+File: Selection_357.png Graphic file (type png)
+ <use Selection_357.png>
+Package pdftex.def Info: Selection_357.png used on input line 259.
+(pdftex.def)             Requested size: 345.0pt x 171.97421pt.
+
+[9 <./Selection_360.png> <./Selection_359.png>] [10 <./Selection_358.png> <./Se
+lection_357.png>] [11] <PistonDiagram.png, id=65, 260.172pt x 260.172pt>
 File: PistonDiagram.png Graphic file (type png)
 
 <use PistonDiagram.png>
-Package pdftex.def Info: PistonDiagram.png used on input line 270.
+Package pdftex.def Info: PistonDiagram.png used on input line 305.
 (pdftex.def)             Requested size: 258.75pt x 258.76202pt.
- [9 <./PistonDiagram.png>]
-Overfull \hbox (11.35065pt too wide) in paragraph at lines 292--292
+ [12 <./PistonDiagram.png>]
+Overfull \hbox (11.35065pt too wide) in paragraph at lines 327--327
 [] 
  []
 
-[10] [11] [12] [13] [14] [15] [16] (./FinalReport.aux)
+[13] [14] [15] [16] [17] [18] [19]
+Overfull \hbox (53.17218pt too wide) in paragraph at lines 530--540
+[][] 
+ []
+
+[20] <csm.png, id=96, 1010.77625pt x 500.87125pt>
+File: csm.png Graphic file (type png)
+ <use csm.png>
+Package pdftex.def Info: csm.png used on input line 595.
+(pdftex.def)             Requested size: 345.0pt x 170.95888pt.
+
+<cst.png, id=97, 985.6825pt x 485.815pt>
+File: cst.png Graphic file (type png)
+ <use cst.png>
+Package pdftex.def Info: cst.png used on input line 599.
+(pdftex.def)             Requested size: 345.0pt x 170.0378pt.
+
+<css.png, id=98, 943.525pt x 483.8075pt>
+File: css.png Graphic file (type png)
+ <use css.png>
+Package pdftex.def Info: css.png used on input line 603.
+(pdftex.def)             Requested size: 345.0pt x 176.90201pt.
+
+<csd.png, id=99, 918.43124pt x 478.78876pt>
+File: csd.png Graphic file (type png)
+ <use csd.png>
+Package pdftex.def Info: csd.png used on input line 607.
+(pdftex.def)             Requested size: 345.0pt x 179.85217pt.
+ [21]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[22 <./csm.png> <./cst.png>] [23 <./css.png> <./csd.png>] [24]
+<h.png, id=113, 766.062pt x 465.53925pt>
+File: h.png Graphic file (type png)
+ <use h.png>
+Package pdftex.def Info: h.png used on input line 622.
+(pdftex.def)             Requested size: 345.0pt x 209.66121pt.
+
+<Displacement.png, id=114, 744.98325pt x 465.84038pt>
+File: Displacement.png Graphic file (type png)
+ <use Displacement.png>
+Package pdftex.def Info: Displacement.png used on input line 628.
+(pdftex.def)             Requested size: 345.0pt x 215.73212pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[25 <./h.png>] [26 <./Displacement.png>] [27] (./FinalReport.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 3956 strings out of 493029
- 56148 string characters out of 6136234
- 127766 words of memory out of 5000000
- 7431 multiletter control sequences out of 15000+600000
- 8102 words of font info for 31 fonts, out of 8000000 for 9000
+ 4030 strings out of 493029
+ 57388 string characters out of 6136234
+ 126785 words of memory out of 5000000
+ 7490 multiletter control sequences out of 15000+600000
+ 8448 words of font info for 32 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  38i,18n,39p,561b,312s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
@@ -645,11 +746,12 @@ s/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1
 /amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
 s/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
 y10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb
-></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb>
-Output written on FinalReport.pdf (17 pages, 339324 bytes).
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb>
+Output written on FinalReport.pdf (28 pages, 3306847 bytes).
 PDF statistics:
- 117 PDF objects out of 1000 (max. 8388607)
- 79 compressed objects within 1 object stream
+ 173 PDF objects out of 1000 (max. 8388607)
+ 106 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 86 words of extra memory for PDF output out of 10000 (max. 10000000)
 

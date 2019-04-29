@@ -103,7 +103,7 @@ function NumericalScript
 
   %Connecting Rod
   global CRLength = 16/100; %m
-  CRMass = 1;
+  CRMass = 2;
   
   %CrankShaft Geometry
   global crankRadius = pistonSweep/2; %m
@@ -113,7 +113,7 @@ function NumericalScript
   crankShaftSubsectionLength = crankLength + shaftLength + 2*crankConnectorThickness;
   shaftBearingDistance = 30/1000;
   crankShaftLength = shaftBearingDistance +crankShaftSubsectionLength*6;
-  shaftDiameter = 62/1000;
+  shaftDiameter = 75/1000;
   crankDiameter = shaftDiameter;
   shaftI = pi*shaftDiameter^4/(4*2^4);
   crankI  = pi*crankDiameter^4/(4*2^4);
@@ -126,7 +126,7 @@ function NumericalScript
   ##############################
   %Forces
   ##############################  
-  samples = 100;
+  samples = 1000;
   t = 0:period/samples:period;
   global initialPistonHeight = V_comp/chamberArea;
   
@@ -383,6 +383,10 @@ function NumericalScript
   crankShaftSlope = crankShaftSlope/(pistonMat.E*shaftI);
   crankShaftDisplacement = crankShaftDisplacement/(pistonMat.E*shaftI);
   
+  crankShaftDisplacementMag = crankShaftDisplacement(1,:,1,:).^2+crankShaftDisplacement(1,:,2,:).^2;
+  crankShaftDisplacementMag = sqrt(crankShaftDisplacementMag);
+  crankShaftDisplacementMax = max(max(crankShaftDisplacementMag));
+  
   crankShaftSlopeMag = crankShaftSlope(1,:,1,:).^2+crankShaftSlope(1,:,2,:).^2;
   crankShaftSlopeMag = sqrt(crankShaftSlopeMag);
   crankShaftSlopeMax = max(max(crankShaftSlopeMag));
@@ -395,15 +399,15 @@ function NumericalScript
   crankShaftTorqueMax = max(max(max(abs(crankShaftTorque))));
   crankShaftShearStress = crankShaftTorqueMax*shaftDiameter/(4*shaftI);
   
-  crankShaftVonMises = sqrt(crankShaftMomentStress+3*crankShaftShearStress);
+  crankShaftVonMises = sqrt(crankShaftMomentStress^2+3*crankShaftShearStress^2);
   
-  if 3*crankShaftVonMises > pistonMat.Sy
+  if 1.5*crankShaftVonMises > crankShaftMat.Sy
     error('Crank Shaft fails to meet FoS')
   endif
   
   
   
-  plot(crankShaftLocations,crankShaftSlope(1,1,1,:));
+  
   
   disp('Paused')
  save vars.mat
