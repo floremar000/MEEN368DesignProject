@@ -7,6 +7,36 @@ Design Goals:
   We also aimed to model our combustion cycle with an Atkinson cycle instead of the standard otto or diesel cycle for reasons which will 
   be described later on.
 
+
+	There are several critical reaction forces that must be found in order to accuratly model the fatigue and stresses on the piston head design.\\
+\begin{center}
+\begin{tabular}{ |c|c| } 
+ \hline
+ \textbf{\underline{Force}} & \textbf{\underline{Description}} \\ 
+ $F_{gas}$ & Force applied by combusted gas during power stroke \\ 
+ $F_{skirt}$ & Normal force on piston head skirt \\ 
+ $F_{rod}$ & Axial force on connecting rod \\ 
+ $F_{fskirt}$ & Frictional force on skirt \\
+ $F_{crank}$ & Normal force on connecting rod bearing journals \\  
+ $F_{intertia}$ & Inertial forces on piston head \\
+ $M_{head}$ & Moment of piston head about piston head pivot \\
+ $M_{rod}$ & Moment of connecting rod about connecting rod beading journal \\
+ \hline
+\end{tabular}
+\end{center}
+
+	While all these reaction forces are functions of time due to the variable pressure in the combustion chamber, we will only be evaluating them at the maximum pressure due to the fact that the reaction forces will be highest at max pressure. Therefore, stress failure will only occur at maximum pressure. Fatigue failure is also a concern, however, that too only requires the maximum points and cycle rates, not the reactions and actions as a function of time. Furthermore, we will be evaluating these values for two different configurations later. First, here are the governing equations for the reaction forces.
+	\begin{align}
+	    \sum F_{x} &=F_{skirt} - (F_{rod})(sin(\theta)) \\
+		\sum F_{y} &= -F_{gas}+\mu F_{skirt} +F_{rod}(cos(\theta)) \\
+		\sum M_{rod} &= L_{cr}sin(\theta_{cr})(F_{gas}) - L_{cr}cos(\theta_{cr})(F_{reac-y}) \\
+		\sum M_{head} &= F_{lskirt}(L_{sc})-F_{rx}(L_{pmcv})-F_{rskirt}(L_{sc})-F_{ry}(L_{pmch})\\
+		\sum M_{cs} &= F_{rod}(cos(90-\theta_{cr}-\theta_{cs})(R_cs)
+	\end{align}
+ The two configurations are shown in figure 2. The first one has the pivot point of the connecting rod and the center of mass of the piston head in the same spot.  The main advantage of this configuration is that it drastically reduces the moment on the piston head, however, the the torque output is decreased. 
+
+The second configuration has the connecting rod offset from the center of mass on both the horizontal and vertical axis. This configuration provides more power as the angle of the connecting rod to the crankshaft will be 90, and thus provide the most torque, closer to the TDC where the pressure is maximum. The downside of this design is that it creates a larger moment in the piston head which increases the frictional losses to the walls.
+
 \begin{center}
 \begin{tabular}{ |c|c|c|c|c|c|c|c| } 
  \hline
@@ -19,3 +49,27 @@ SAE 945A HSLA Steel & 7750 & 200 & 0.285 & 310 & 450 & 58.06\\
  \hline
 \end{tabular}
 \end{center}
+
+\begin{center}
+\begin{tabular}{ |c|c|c|c|c| }
+ \hline
+	Material & Cast Iron & 6061 Aluminum &  AISI 4130 Steel & SAE 945A HSLA Steel\\
+	$FS_{buckling}$ & 0 & 0 &  0 & 0 \\
+	$FS_{Yielding}$ & 0 & 0 &  0 & 0 \\
+	$FS_{soderberg}$ & 0 & 0 &  0 & 0 \\
+	LEFM Fatigue Life (cycles) & 0 & 0 &  0 & 0 \\
+	Inertial Torque(N m) & 0 & 0 &  0 & 0 \\
+	Axial Force (N)  & 0 & 0 &  0 & 0 \\
+	LEFM Fatigue Life (cycles)  & 0 & 0 &  0 & 0 \\
+	$\sigma_{xN}$  & 0 & 0 &  0 & 0 \\
+	$\sigma_{xBending}$  & 0 & 0 &  0 & 0 \\
+	$\sigma_{x}$ & 0 & 0 &  0 & 0 \\
+	$P_{cr1}$  & 0 & 0 &  0 & 0 \\
+	$P_{cr2}$  & 0 & 0 &  0 & 0 \\
+	$\beta$ & 0 & 0 &  0 & 0 \\
+	Critical Crack Size & 0 & 0 &  0 & 0 \\
+	Initial Crack Size & 0 & 0 &  0 & 0 \\
+ \hline
+\end{tabular}
+\end{center}
+
