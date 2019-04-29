@@ -95,7 +95,7 @@ function NumericalScript
 
   %Rings
   interference = .0009*chamberDiameter;
-  ringOuterDiameter = chamberDiameter + interference;
+  ringOuterDiameter = 7.89/100;
   ringInnerDiameter = pistonChannelDiameter;
   ringHeight = 5/1000;
   ringLocHeight = 15/1000;
@@ -211,7 +211,7 @@ function NumericalScript
   %Ring Pressures
   minPFit = P3 - min(ringForces)/(chamberDiameter*ringHeight);
 
-  denm = (chamberDiameter/pistonMat.E)*(1+pistonMat.v) + (ringOuterDiameter/ringMat.E)*(1+ringMat.v);
+  denm = (chamberDiameter/(200*10^9))*(1+pistonMat.v) + (ringOuterDiameter/ringMat.E)*(1+ringMat.v);
   PFit = interference/denm;
 
   %Factor Of Safety
@@ -257,7 +257,7 @@ function NumericalScript
   %Piston Stresses and Deflection
   ###############################
   pistonHeadStress = -maxPForce/pistonHeadArea;
-  pistonChannelPressureStress = pistonHeadStress*pistonHeadDiameter^2/(pistonChannelDiameter);
+  pistonChannelPressureStress = pistonHeadStress*pistonHeadDiameter^2/(pistonChannelDiameter^2);
   pistonChannelPushoutStress = -P3*(ringOuterDiameter^2-pistonHeadDiameter^2)/(pistonHeadDiameter^2-ringInnerDiameter^2);
   pistonChannelMaxStress = pistonChannelConcentrationFactor*(pistonChannelPressureStress+pistonChannelPushoutStress);
 
@@ -270,7 +270,7 @@ function NumericalScript
 
   [pistonMaxVonMises, maxindex] = max([abs(pistonJointNormalStress),abs(sqrt(3)*pistonJointShearStress),abs(pistonTailMaxStress), abs(pistonChannelMaxStress),abs(pistonJointPulloutStress)]);
   %Axial go from roughly 0 to max. Mean stress is compressive.
-  pistonAlternatingAxialVonMises = max([abs(pistonJointNormalStress)/.85,abs(pistonTailMaxStress)/.85, abs(pistonChannelMaxStress)/.85])/2;
+  pistonAlternatingAxialVonMises = max([abs(pistonJointNormalStress)/.85,abs(pistonTailMaxStress)/.85, abs(pistonChannelMaxStress)/.85]);
   %Push Out Fatigue
   pistonMeanPushOutVonMises = sqrt(3)*pistonJointShearStress/2;
   pistonAmpPushOutVonMises = sqrt(3)*pistonJointShearStress/2;
