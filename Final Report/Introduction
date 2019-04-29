@@ -73,3 +73,14 @@ SAE 945A HSLA Steel & 7750 & 200 & 0.285 & 310 & 450 & 58.06\\
 \end{tabular}
 \end{center}
 
+	In place of using excel to calculate and graph the forces and moments on the piston, we chose to use matlab. This was done for
+several reasons. Firstly, we are more familiar with matlab's graphing and calculating capabilities. Secondly, it is also better for doing
+operations like integration and differentiation which were useful in plotting position and velocity with respect to time.
+
+	The theory of linear elastic fracture mechanics allows us to simulate fracture mechanics for more complex geometry. The von
+Mises theory assumes a thin crack through an infinite plane of some thickness. The LEFM theory first assumes that the material is 
+isotropic and linear elastic. Based on the assumption, the stress field near the crack tip is calculated using the theory of elasticity. 
+This allows it to be used for more complex geometry.
+
+	
+	
